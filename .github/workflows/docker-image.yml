@@ -12,7 +12,7 @@ env:
 
 jobs:
 
-  build:
+  build_test:
     runs-on: ubuntu-latest
     
     strategy: 
@@ -23,14 +23,24 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v3
       
-      - name: Use Node.s ${{ matrix.node-version }}
-        uses: actions@setup-node@v2
+      - name: setup node
+        uses: actions/setup-node@master
         with:
           node-version: ${{ matrix.node-version }}
-          cache: "npm"
-      
-      - run: npm install      
 
+      # install applicaion dependencies
+      - name: Install dependencies
+        run: |
+          npm install
+           
+  push_to_Docker_Hub:
+    runs-on: ubuntu-latest
+    needs: [build_test]
+    
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
+        
       - uses: mr-smithers-excellent/docker-build-push@v3
         name: Build & push Docker image
         with:

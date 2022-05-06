@@ -23,11 +23,12 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v3
       
-      - name: Use Node.s ${{matrix.node-version}}
+      - name: Use Node.s ${{ matrix.node-version }}
         uses: actions@setup-node@v2
         with:
-          node-version: ${{matrix.node-version}}
+          node-version: ${{ matrix.node-version }}
           cache: "npm"
+      
       - run: npm install      
 
       - uses: mr-smithers-excellent/docker-build-push@v3

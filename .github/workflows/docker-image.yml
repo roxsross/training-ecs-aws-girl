@@ -9,14 +9,26 @@ on:
 env:
   REGISTRY: roxsross12
   IMAGE_NAME: demo-app
+
 jobs:
 
   build:
-
     runs-on: ubuntu-latest
+    
+    strategy: 
+     matrix:
+       node-version: [12.x]    
+    
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
+      
+      - name: Use Node.s ${{matrix.node-version}}
+        uses: actions@setup-node@v2
+        with:
+          node-version: ${{matrix.node-version}}
+          cache: "npm"
+      - run: npm install      
 
       - uses: mr-smithers-excellent/docker-build-push@v3
         name: Build & push Docker image

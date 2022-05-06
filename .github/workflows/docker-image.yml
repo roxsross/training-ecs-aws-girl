@@ -1,7 +1,5 @@
 name: CI-CD
 
-name: Docker Image CI
-
 on:
   push:
     branches: [ master ]

@@ -21,7 +21,7 @@ jobs:
       - uses: mr-smithers-excellent/docker-build-push@v3
         name: Build & push Docker image
         with:
-          image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          image: ${{ env.IMAGE_NAME }}
           tags: v1, latest
           registry: ${{ env.REGISTRY }}
           dockerfile: Dockerfile
